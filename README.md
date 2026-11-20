@@ -90,13 +90,6 @@ Hierin zijn twee waarden hardcoded in de app, maar ze betekenen iets anders:
 - **52 cm** is een echte, vaste hardwareconstante (`getTunnelOffsetConstantCm`).
   De tunnel moet minstens 52 cm diep zijn zodat de sensor niet onder water kan
   komen; in de formule wordt 52 van de tunnelhoogte afgetrokken.
-- **60 cm** is géén constante maar de **standaardkeuze** uit de tunnel-dropdown
-  (opties: 52/60/80/100/120/aangepast). De app gebruikt altijd jouw ingestelde
-  tunnelhoogte (`wellTunnelHeight` uit de JWT-claims) en valt alleen terug op 60
-  als die waarde ontbreekt. Deze integratie doet hetzelfde.
-
-Beide staan in `custom_components/droptimize/const.py`. De formules zijn
-gevalideerd tegen de echte API én de server-cijfers van de app.
 
 De authenticatie verloopt met een kortlevende JWT (1 uur) die automatisch wordt
 vernieuwd; het registratienummer wordt in de Home Assistant-config opgeslagen.
@@ -115,13 +108,6 @@ vernieuwd; het registratienummer wordt in de Home Assistant-config opgeslagen.
 - Foutieve vullingsgraad? Controleer of `wellVolume`, `wellHeight` en
   `wellTunnelHeight` in de JWT-claims overeenkomen met je put.
 - [Open een issue](https://github.com/jeroen-org/droptimize-hass/issues).
-
-## Ontwikkelen
-
-```bash
-pip install pytest-homeassistant-custom-component
-pytest
-```
 
 ## Licentie
 
