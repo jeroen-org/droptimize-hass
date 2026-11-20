@@ -14,17 +14,17 @@ from custom_components.droptimize.const import (
     DOMAIN,
 )
 
-REGISTRATION_ID = "860016048962166"
+REGISTRATION_ID = "123456789012345"  # fictief testnummer
 
 BASE_URL = "https://main-bvxea6i-mpaja56t4zhfe.eu-5.platformsh.site"
 
-# Claims match the real test sensor: sensor id 153, 10000 L well, 175 cm, 60 cm tunnel.
+# Fictieve testdata: sensor id 42, 10000 L put, 175 cm hoog, 60 cm tunnel.
 CLAIMS = {
-    "sub": 153,
-    "id": 153,
+    "sub": 42,
+    "id": 42,
     "registrationId": REGISTRATION_ID,
-    "postalCode": 3020,
-    "street": "Groenstraat 124",
+    "postalCode": 2000,
+    "street": "Voorbeeldstraat 1",
     "wellType": "oval",
     "wellVolume": 10000,
     "wellHeight": 175,
@@ -42,18 +42,18 @@ def _fresh_dashboard() -> dict:
 
     now = datetime.datetime.now(datetime.UTC) - datetime.timedelta(minutes=5)
     return {
-        "sensorId": 153,
+        "sensorId": 42,
         "sensorData": {
             "lastReading": {
                 "timestamp": now.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
-                "id": 440172,
+                "id": 1,
                 "distanceRadarInMM": 1383,
                 "distanceSonarInMM": 0,
                 "batteryV": 3.959,
                 "temperature": 23.15,
                 "batteryPercent": 80,
                 "RSSI": 15,
-                "sensorId": 153,
+                "sensorId": 42,
             },
             "volumeDelta7d": -234.28,
         },
@@ -99,8 +99,8 @@ async def test_full_setup(hass: HomeAssistant, aioclient_mock) -> None:
     entry = MockConfigEntry(
         domain=DOMAIN,
         data={CONF_REGISTRATION_ID: REGISTRATION_ID},
-        unique_id="153",
-        title="Groenstraat 124 (3020)",
+        unique_id="42",
+        title="Voorbeeldstraat 1 (2000)",
     )
     entry.add_to_hass(hass)
 
@@ -108,16 +108,16 @@ async def test_full_setup(hass: HomeAssistant, aioclient_mock) -> None:
     await hass.async_block_till_done()
 
     # Fill level should be 26% / 2554 L, matching the app and the server.
-    assert hass.states.get("sensor.groenstraat_124_3020_fill_level").state == "26"
-    assert hass.states.get("sensor.groenstraat_124_3020_water_volume").state == "2554"
-    assert hass.states.get("sensor.groenstraat_124_3020_water_depth").state == "138.3"
-    assert hass.states.get("sensor.groenstraat_124_3020_battery").state == "80"
-    assert hass.states.get("sensor.groenstraat_124_3020_temperature").state == "23.15"
-    assert hass.states.get("sensor.groenstraat_124_3020_volume_change_7_days").state == "-234.3"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_fill_level").state == "26"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_water_volume").state == "2554"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_water_depth").state == "138.3"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_battery").state == "80"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_temperature").state == "23.15"
+    assert hass.states.get("sensor.voorbeeldstraat_1_2000_volume_change_7_days").state == "-234.3"
 
     # Binary sensors: battery is fine, reading is fresh.
-    assert hass.states.get("binary_sensor.groenstraat_124_3020_battery_low").state == "off"
-    assert hass.states.get("binary_sensor.groenstraat_124_3020_no_reading_received").state == "off"
+    assert hass.states.get("binary_sensor.voorbeeldstraat_1_2000_battery_low").state == "off"
+    assert hass.states.get("binary_sensor.voorbeeldstraat_1_2000_no_reading_received").state == "off"
 
     assert await hass.config_entries.async_unload(entry.entry_id)
     await hass.async_block_till_done()
@@ -130,7 +130,7 @@ async def test_options_scan_interval(hass: HomeAssistant, aioclient_mock) -> Non
     entry = MockConfigEntry(
         domain=DOMAIN,
         data={CONF_REGISTRATION_ID: REGISTRATION_ID},
-        unique_id="153",
+        unique_id="42",
     )
     entry.add_to_hass(hass)
 
@@ -180,9 +180,9 @@ async def test_config_flow_success(hass: HomeAssistant, aioclient_mock) -> None:
     await hass.async_block_till_done()
 
     assert result["type"] == "create_entry"
-    assert result["title"] == "Groenstraat 124 (3020)"
+    assert result["title"] == "Voorbeeldstraat 1 (2000)"
     assert result["data"] == {CONF_REGISTRATION_ID: REGISTRATION_ID}
-    assert result["result"].unique_id == "153"
+    assert result["result"].unique_id == "42"
 
 
 async def test_config_flow_already_configured(hass: HomeAssistant, aioclient_mock) -> None:
