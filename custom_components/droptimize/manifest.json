@@ -1,12 +1,12 @@
 {
   "domain": "droptimize",
   "name": "Droptimize",
-  "codeowners": ["@jeroenvdw-bot"],
+  "codeowners": ["@jeroen-org"],
   "config_flow": true,
-  "documentation": "https://github.com/jeroenvdw-bot/droptimize-hass",
+  "documentation": "https://github.com/jeroen-org/droptimize-hass",
   "integration_type": "device",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/jeroenvdw-bot/droptimize-hass/issues",
+  "issue_tracker": "https://github.com/jeroen-org/droptimize-hass/issues",
   "requirements": [],
   "version": "1.0.0"
 }

@@ -26,7 +26,7 @@ sensor nodig — dat staat op de sticker op de sensor.
 1. Open **HACS** in Home Assistant.
 2. Klik rechtsboven op de drie puntjes → **Custom repositories**.
 3. Vul in:
-   - **Repository:** `https://github.com/jeroenvdw-bot/droptimize-hass`
+   - **Repository:** `https://github.com/jeroen-org/droptimize-hass`
    - **Category:** `Integration`
 4. Klik op **Add**.
 5. Zoek nu in HACS naar **Droptimize** en klik op **Download**.
@@ -114,7 +114,7 @@ vernieuwd; het registratienummer wordt in de Home Assistant-config opgeslagen.
   recent nog gemeten heeft (de API geeft dan geen `lastReading`).
 - Foutieve vullingsgraad? Controleer of `wellVolume`, `wellHeight` en
   `wellTunnelHeight` in de JWT-claims overeenkomen met je put.
-- [Open een issue](https://github.com/jeroenvdw-bot/droptimize-hass/issues).
+- [Open een issue](https://github.com/jeroen-org/droptimize-hass/issues).
 
 ## Ontwikkelen
 
