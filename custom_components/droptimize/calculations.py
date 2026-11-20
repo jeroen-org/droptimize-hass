@@ -13,16 +13,23 @@ def remaining_liters(
 ) -> float:
     """Return the remaining water volume in litres.
 
-    Mirrors ``calculateRemainingLiters`` from the app:
-    1. radar distance (mm) -> water level in cm below the tunnel
-    2. water column height = well height - water level
-    3. volume = (well volume / well height) * water column
+    Mirrors ``calculateRemainingLiters`` from the app (module 5274):
+    1. tunnel_cm = wellTunnelHeight - 52  (offset), or 60 when unknown
+    2. water level in cm = radar distance (cm) - tunnel_cm, clipped at 0
+    3. water column = well height - water level, clipped to [0, well height]
+    4. volume = (well volume / well height) * water column
+
+    ``well_tunnel_height`` is the user-configured tunnel depth (the app's
+    dropdown: 52/60/80/100/120/custom). It falls back to 60 only when it is
+    missing or not a number — matching ``getDefaultWellTunnelHeightCm``.
     """
     if well_volume <= 0 or well_height <= 0:
         return 0.0
 
-    tunnel_cm = DEFAULT_TUNNEL_CM if well_tunnel_height is None else well_tunnel_height
-    tunnel_cm = max(0.0, tunnel_cm - TUNNEL_OFFSET_CM)
+    tunnel_cm = well_tunnel_height
+    if tunnel_cm is None or tunnel_cm != tunnel_cm:  # None or NaN
+        tunnel_cm = DEFAULT_TUNNEL_CM
+    tunnel_cm = max(0.0, float(tunnel_cm) - TUNNEL_OFFSET_CM)
 
     water_level_cm = max(0.0, distance_mm / 10.0 - tunnel_cm)
     water_column_cm = min(max(well_height - water_level_cm, 0.0), well_height)

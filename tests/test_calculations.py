@@ -53,6 +53,31 @@ def test_default_tunnel_when_none():
     )
 
 
+def test_default_tunnel_when_nan():
+    """A NaN tunnel height also falls back to the default (60 cm)."""
+    assert remaining_liters(VOL, HEIGHT, float("nan"), 1383) == remaining_liters(
+        VOL, HEIGHT, 60, 1383
+    )
+
+
+def test_configured_tunnel_changes_result():
+    """A user-configured tunnel height is used, not the 60 cm default.
+
+    The tunnel dropdown in the app offers 52/60/80/100/120/custom. A deeper
+    tunnel (100 cm) leaves more room for water, so the fill percentage rises.
+    """
+    shallow = percent_filled(VOL, HEIGHT, 60, 1383)
+    deep = percent_filled(VOL, HEIGHT, 100, 1383)
+    assert deep > shallow
+    assert (shallow, deep) == (26, 48)
+
+
+def test_custom_tunnel_height():
+    """A custom (non-dropdown) tunnel height is honoured too."""
+    # 80 cm tunnel, same reading -> between the 60 and 100 cases
+    assert percent_filled(VOL, HEIGHT, 80, 1383) == 37
+
+
 @pytest.mark.parametrize(
     ("distance", "expected_pct"),
     [

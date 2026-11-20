@@ -19,13 +19,27 @@ REQUEST_TIMEOUT = 20
 # between freshness and not hammering an unofficial API.
 DEFAULT_SCAN_INTERVAL = timedelta(minutes=30)
 
-# Client-side water level calculation, copied from the app (module 5274/5275 of
+# Client-side water level calculation, copied from the app (module 5274 of
 # index.android.bundle). The API only returns the radar distance; the app derives
 # litres and fill percentage from the well geometry.
 #
-# If the app changes these values in a future release, update them here.
-TUNNEL_OFFSET_CM = 52  # getTunnelOffsetConstantCm()
-DEFAULT_TUNNEL_CM = 60  # getDefaultWellTunnelHeightCm()
+# The app has two hardcoded helpers:
+#   getTunnelOffsetConstantCm()    -> Number('52')
+#   getDefaultWellTunnelHeightCm() -> Number('60')
+#
+# TUNNEL_OFFSET_CM (52) is a real hardware constant: the tunnel must be at least
+# 52 cm deep so the sensor never ends up underwater (see the app string
+# "Diepte van de tunnel moet minimaal 52 cm zijn zodat de sensor niet onder water
+# kan komen te staan."). In the formula it is subtracted from the user's tunnel
+# height to get the water column above the tunnel.
+#
+# DEFAULT_TUNNEL_CM (60) is NOT a constant in the same sense: it is only the
+# default choice from the tunnel dropdown (options: 52/60/80/100/120/custom).
+# The app always uses the user-configured `wellTunnelHeight` (from the JWT
+# claims) when present, and only falls back to 60 when that value is missing or
+# NaN. We do the same: 60 is used as a last-resort fallback only.
+TUNNEL_OFFSET_CM = 52  # getTunnelOffsetConstantCm() — fixed hardware offset
+DEFAULT_TUNNEL_CM = 60  # getDefaultWellTunnelHeightCm() — fallback only
 
 # Battery is considered low below this percentage.
 BATTERY_LOW_PERCENT = 20
