@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Droptimize",
+        "description": "Voer het registratienummer in dat op de sticker van je sensor staat.",
+        "data": {
+          "registration_id": "Registratienummer"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Droptimize opnieuw authenticeren",
+        "description": "Voer een nieuw registratienummer in voor sensor {sensor_id}.",
+        "data": {
+          "registration_id": "Registratienummer"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ongeldig registratienummer.",
+      "cannot_connect": "Kan geen verbinding maken met de Droptimize API.",
+      "unknown": "Onverwachte fout.",
+      "wrong_account": "Dit registratienummer hoort bij een andere put."
+    },
+    "abort": {
+      "already_configured": "Deze put is al geconfigureerd.",
+      "reauth_successful": "Authenticatie geslaagd."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Droptimize opties",
+        "data": {
+          "scan_interval": "Poll-interval (seconden)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "percent_filled": { "name": "Vullingsgraad" },
+      "remaining_liters": { "name": "Watervolume" },
+      "water_depth": { "name": "Waterdiepte" },
+      "battery": { "name": "Batterij" },
+      "battery_voltage": { "name": "Batterijspanning" },
+      "temperature": { "name": "Temperatuur" },
+      "last_reading": { "name": "Laatste meting" },
+      "volume_delta_7d": { "name": "Volumeverschil 7 dagen" },
+      "radar_distance": { "name": "Radarafstand" },
+      "rssi": { "name": "Signaalsterkte" }
+    },
+    "binary_sensor": {
+      "low_battery": { "name": "Batterij laag" },
+      "no_reading": { "name": "Geen meting ontvangen" }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "entity": {
+    "sensor": {
+      "percent_filled": { "default": "mdi:water-percent" },
+      "remaining_liters": { "default": "mdi:water" },
+      "water_depth": { "default": "mdi:arrow-expand-vertical" },
+      "battery": { "default": "mdi:battery" },
+      "battery_voltage": { "default": "mdi:flash" },
+      "temperature": { "default": "mdi:thermometer" },
+      "last_reading": { "default": "mdi:clock-outline" },
+      "volume_delta_7d": { "default": "mdi:trending-down" },
+      "radar_distance": { "default": "mdi:radar" },
+      "rssi": { "default": "mdi:signal" }
+    },
+    "binary_sensor": {
+      "low_battery": { "default": "mdi:battery-alert" },
+      "no_reading": { "default": "mdi:alert-circle-outline" }
+    }
+  }
+}

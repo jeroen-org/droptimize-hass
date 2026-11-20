@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Droptimize",
+        "description": "Enter the registration number printed on the sticker of your sensor.",
+        "data": {
+          "registration_id": "Registration number"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate Droptimize",
+        "description": "Enter a new registration number for sensor {sensor_id}.",
+        "data": {
+          "registration_id": "Registration number"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid registration number.",
+      "cannot_connect": "Could not connect to the Droptimize API.",
+      "unknown": "Unexpected error.",
+      "wrong_account": "This registration number belongs to a different well."
+    },
+    "abort": {
+      "already_configured": "This well is already configured.",
+      "reauth_successful": "Authentication successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Droptimize options",
+        "data": {
+          "scan_interval": "Poll interval (seconds)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "percent_filled": { "name": "Fill level" },
+      "remaining_liters": { "name": "Water volume" },
+      "water_depth": { "name": "Water depth" },
+      "battery": { "name": "Battery" },
+      "battery_voltage": { "name": "Battery voltage" },
+      "temperature": { "name": "Temperature" },
+      "last_reading": { "name": "Last reading" },
+      "volume_delta_7d": { "name": "Volume change 7 days" },
+      "radar_distance": { "name": "Radar distance" },
+      "rssi": { "name": "Signal strength" }
+    },
+    "binary_sensor": {
+      "low_battery": { "name": "Battery low" },
+      "no_reading": { "name": "No reading received" }
+    }
+  }
+}
