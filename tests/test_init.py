@@ -100,7 +100,7 @@ async def test_full_setup(hass: HomeAssistant, aioclient_mock) -> None:
         domain=DOMAIN,
         data={CONF_REGISTRATION_ID: REGISTRATION_ID},
         unique_id="42",
-        title="Voorbeeldstraat 1 (2000)",
+        title="Droptimize 123456789012345",
     )
     entry.add_to_hass(hass)
 
@@ -108,16 +108,16 @@ async def test_full_setup(hass: HomeAssistant, aioclient_mock) -> None:
     await hass.async_block_till_done()
 
     # Fill level should be 26% / 2554 L, matching the app and the server.
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_fill_level").state == "26"
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_water_volume").state == "2554"
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_water_depth").state == "138.3"
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_battery").state == "80"
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_temperature").state == "23.15"
-    assert hass.states.get("sensor.voorbeeldstraat_1_2000_volume_change_7_days").state == "-234.3"
+    assert hass.states.get("sensor.droptimize_123456789012345_fill_level").state == "26"
+    assert hass.states.get("sensor.droptimize_123456789012345_water_volume").state == "2554"
+    assert hass.states.get("sensor.droptimize_123456789012345_water_depth").state == "138.3"
+    assert hass.states.get("sensor.droptimize_123456789012345_battery").state == "80"
+    assert hass.states.get("sensor.droptimize_123456789012345_temperature").state == "23.15"
+    assert hass.states.get("sensor.droptimize_123456789012345_volume_change_7_days").state == "-234.3"
 
     # Binary sensors: battery is fine, reading is fresh.
-    assert hass.states.get("binary_sensor.voorbeeldstraat_1_2000_battery_low").state == "off"
-    assert hass.states.get("binary_sensor.voorbeeldstraat_1_2000_no_reading_received").state == "off"
+    assert hass.states.get("binary_sensor.droptimize_123456789012345_battery_low").state == "off"
+    assert hass.states.get("binary_sensor.droptimize_123456789012345_no_reading_received").state == "off"
 
     assert await hass.config_entries.async_unload(entry.entry_id)
     await hass.async_block_till_done()
@@ -180,7 +180,7 @@ async def test_config_flow_success(hass: HomeAssistant, aioclient_mock) -> None:
     await hass.async_block_till_done()
 
     assert result["type"] == "create_entry"
-    assert result["title"] == "Voorbeeldstraat 1 (2000)"
+    assert result["title"] == "Droptimize 123456789012345"
     assert result["data"] == {CONF_REGISTRATION_ID: REGISTRATION_ID}
     assert result["result"].unique_id == "42"
 

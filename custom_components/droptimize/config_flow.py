@@ -42,22 +42,14 @@ async def _validate_input(hass: HomeAssistant, user_input: dict[str, Any]) -> di
 
     claims = api.claims
     sensor_id = claims.get("id")
-    street = claims.get("street")
-    postal_code = claims.get("postalCode")
+    registration_id = str(user_input[CONF_REGISTRATION_ID])
 
     if sensor_id is None:
         raise DroptimizeAuthError("Geen sensor id in token claims")
 
-    title = str(street) if street else f"Put {sensor_id}"
-    if postal_code:
-        title = f"{title} ({postal_code})"
-
     return {
-        "title": title,
+        "title": f"Droptimize {registration_id}",
         "unique_id": str(sensor_id),
-        "sensor_id": sensor_id,
-        "street": street,
-        "postal_code": postal_code,
     }
 
 
